@@ -4,24 +4,30 @@ import { LogoMark } from "@/components/logo-mark";
 
 export function AdminNav() {
   return (
-    <header className="topbar">
+    <header className="topbar admin-topbar">
       <nav className="container admin-nav" aria-label="Admin navigation">
-        <Link className="brand" href="/admin">
+        <Link className="brand admin-brand" href="/admin">
           <LogoMark />
-          <span>Admin</span>
+          <span>
+            <strong>Wholesale India</strong>
+            <small>Admin studio</small>
+          </span>
         </Link>
         <div className="admin-nav-links">
-          <Link className="secondary-button" href="/">
-            Storefront
+          <Link className="admin-nav-link" href="/admin">
+            Dashboard
           </Link>
-          <Link className="secondary-button" href="/admin/products">
+          <Link className="admin-nav-link" href="/admin/products">
             Products
           </Link>
-          <Link className="secondary-button" href="/admin/orders">
+          <Link className="admin-nav-link" href="/admin/orders">
             Orders
           </Link>
+          <Link className="admin-nav-link storefront-link" href="/">
+            Storefront
+          </Link>
           <form action={logoutAdmin}>
-            <button className="ghost-button" type="submit">
+            <button className="admin-nav-link admin-logout" type="submit">
               Logout
             </button>
           </form>

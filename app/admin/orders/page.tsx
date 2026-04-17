@@ -17,10 +17,13 @@ export default async function AdminOrders() {
     <main className="admin-layout">
       <AdminNav />
       <section className="container section">
-        <div className="admin-heading">
+        <div className="admin-heading admin-hero-panel">
           <div>
             <span className="badge">Lead orders</span>
             <h1>Customer enquiries</h1>
+            <p className="muted">
+              Prioritize new requests, confirm details, and open a ready WhatsApp message from each lead.
+            </p>
           </div>
         </div>
         {setupMode ? (
@@ -68,7 +71,7 @@ export default async function AdminOrders() {
                 : "";
 
               return (
-                <article className="admin-card stack" key={order.id}>
+                <article className="admin-card order-admin-card stack" key={order.id}>
                   <div className="cart-total">
                     <div>
                       <span className="status-pill">{order.status}</span>
@@ -85,28 +88,30 @@ export default async function AdminOrders() {
                     {order.state} - {order.pincode}
                   </p>
                   {order.notes ? <p className="notice">{order.notes}</p> : null}
-                  <table className="admin-table">
-                    <thead>
-                      <tr>
-                        <th>Item</th>
-                        <th>Qty</th>
-                        <th>Total</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {order.items.map((item) => (
-                        <tr key={`${item.productId}-${item.variantId}`}>
-                          <td>
-                            {item.productNameSnapshot}
-                            <br />
-                            <span className="muted">{item.variantLabelSnapshot}</span>
-                          </td>
-                          <td>{item.quantity}</td>
-                          <td>{formatInr(item.lineTotalInr)}</td>
+                  <div className="admin-table-wrap">
+                    <table className="admin-table">
+                      <thead>
+                        <tr>
+                          <th>Item</th>
+                          <th>Qty</th>
+                          <th>Total</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {order.items.map((item) => (
+                          <tr key={`${item.productId}-${item.variantId}`}>
+                            <td>
+                              {item.productNameSnapshot}
+                              <br />
+                              <span className="muted">{item.variantLabelSnapshot}</span>
+                            </td>
+                            <td>{item.quantity}</td>
+                            <td>{formatInr(item.lineTotalInr)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                   <div className="cart-total">
                     <form action={updateOrderStatus} className="product-actions">
                       <input name="orderId" type="hidden" value={order.id} />

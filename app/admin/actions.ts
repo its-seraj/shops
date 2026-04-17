@@ -100,6 +100,26 @@ export async function saveProduct(formData: FormData) {
   revalidatePath("/admin/products");
 }
 
+export async function updateProductActive(formData: FormData) {
+  const supabase = requireServiceClient();
+  const id = String(formData.get("productId") ?? "");
+  const active = String(formData.get("active") ?? "") === "true";
+
+  if (!id) {
+    throw new Error("Product id is required.");
+  }
+
+  const { error } = await supabase.from("products").update({ active }).eq("id", id);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/");
+  revalidatePath("/categories");
+  revalidatePath("/admin/products");
+}
+
 export async function saveVariant(formData: FormData) {
   const supabase = requireServiceClient();
   const id = String(formData.get("id") ?? "");
@@ -119,6 +139,44 @@ export async function saveVariant(formData: FormData) {
   }
 
   revalidatePath("/");
+  revalidatePath("/admin/products");
+}
+
+export async function deleteProduct(formData: FormData) {
+  const supabase = requireServiceClient();
+  const id = String(formData.get("productId") ?? "");
+
+  if (!id) {
+    throw new Error("Product id is required.");
+  }
+
+  const { error } = await supabase.from("products").delete().eq("id", id);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/");
+  revalidatePath("/categories");
+  revalidatePath("/admin/products");
+}
+
+export async function deleteVariant(formData: FormData) {
+  const supabase = requireServiceClient();
+  const id = String(formData.get("variantId") ?? "");
+
+  if (!id) {
+    throw new Error("Pack size id is required.");
+  }
+
+  const { error } = await supabase.from("product_variants").delete().eq("id", id);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/");
+  revalidatePath("/categories");
   revalidatePath("/admin/products");
 }
 

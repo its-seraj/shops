@@ -13,13 +13,22 @@ export default async function AdminLogin({
 
   return (
     <main className="admin-layout">
-      <section className="container section" style={{ maxWidth: 560 }}>
-        <Link className="brand" href="/">
-          <LogoMark />
-          <span>Wholesale India</span>
-        </Link>
-        <div className="admin-heading">
-          <h1>Admin login</h1>
+      <section className="container section admin-login-shell">
+        <div className="admin-login-brand">
+          <Link className="brand admin-brand" href="/">
+            <LogoMark />
+            <span>
+              <strong>Wholesale India</strong>
+              <small>Back office</small>
+            </span>
+          </Link>
+        </div>
+        <div className="admin-heading admin-hero-panel">
+          <div>
+            <span className="badge">Secure access</span>
+            <h1>Admin login</h1>
+            <p className="muted">Sign in to manage products, packs, and customer enquiries.</p>
+          </div>
         </div>
         {!config.isConfigured ? (
           <div className="notice">
@@ -28,7 +37,7 @@ export default async function AdminLogin({
           </div>
         ) : null}
         {error ? <p className="error">{error}</p> : null}
-        <form action={loginAdmin} className="admin-card stack">
+        <form action={loginAdmin} className="admin-card admin-form-card stack">
           <div className="field">
             <label htmlFor="email">Email</label>
             <input id="email" name="email" type="email" required disabled={!config.isConfigured} />
