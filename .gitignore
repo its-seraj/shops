@@ -1,0 +1,9 @@
+node_modules/
+.next/
+out/
+dist/
+coverage/
+tsconfig.tsbuildinfo
+.env
+.env.local
+!.env.example
